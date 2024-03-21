@@ -1,0 +1,22 @@
+<app-creacion-pokemon
+  (eventSavePokemon)="addNewPokemonToList($event)"
+></app-creacion-pokemon>
+
+<p-card header="Listado de Pokemon" [style]="{ 'margin-top': '3%' }">
+  <p-table [value]="pokemonList" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Tamano</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pokemon>
+      <tr>
+        <td>{{ pokemon.nombre }}</td>
+        <td>{{ pokemon.tipo }}</td>
+        <td>{{ pokemon.tamano }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
