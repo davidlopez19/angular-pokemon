@@ -1,18 +1,5 @@
 <p-card header="Componente Creacion Pokemon">
-  <div class="formgroup-inline">
-    <div class="field col">
-      <label for="nombre">Nombre</label>
-      <input pInputText id="nombre" [(ngModel)]="nuevoPokemon.nombre" />
-    </div>
-    <div class="field col">
-      <label for="tipoPokemon">Tipo</label>
-      <input pInputText id="tipoPokemon" [(ngModel)]="nuevoPokemon.tipo" />
-    </div>
-    <div class="field col">
-      <label for="tamano">tamano</label>
-      <input pInputText id="tamano" [(ngModel)]="nuevoPokemon.tamano" />
-    </div>
-    <p-button label="Guardar" icon="pi pi-check" (onClick)="savePokemon()"></p-button>
-  </div>
+  <app-formulario-pokemon
+    (eventSaveFormPokemon)="saveNewPokemon($event)"
+  ></app-formulario-pokemon>
 </p-card>
-

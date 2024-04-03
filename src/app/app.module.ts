@@ -15,10 +15,19 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { FormularioPokemonComponent } from './shared/formulario-pokemon/formulario-pokemon.component';
+import { ActualizarPokemonComponent } from './actualizar-pokemon/actualizar-pokemon.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
-  declarations: [AppComponent, ListPokemonComponent, CreacionPokemonComponent],
+  declarations: [
+    AppComponent,
+    ListPokemonComponent,
+    CreacionPokemonComponent,
+    FormularioPokemonComponent,
+    ActualizarPokemonComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,8 +41,9 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     CardModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

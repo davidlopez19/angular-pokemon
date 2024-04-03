@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PokemonModel } from '../models/pokemon.model';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { PokemonService } from '../services/pokemon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -10,13 +12,38 @@ import { MessageService } from 'primeng/api';
 export class ListPokemonComponent {
   pokemonList: PokemonModel[] = [];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private router: Router,
+    private confirmationService: ConfirmationService
+  ) {
+    this.getAllPokemon();
+  }
 
-  addNewPokemonToList(pokemon: PokemonModel) {
-    if (this.pokemonList.find((x) => x.nombre == pokemon.nombre) == null) {
-      this.pokemonList.push(pokemon);
-    } else {
-      this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'El pokemon ya existe' });
-    }
+  getAllPokemon() {
+    this.pokemonList = this.pokemonService.getAllPokemon();
+  }
+
+  updatePokemon(pokemon: PokemonModel) {
+    let position = this.pokemonList.indexOf(pokemon);
+    this.router.navigate(['/update-pokemon', position]);
+  }
+
+  deletePokemon(event: Event, pokemon: PokemonModel) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Esta seguro que quiere eliminar el pokemon ${pokemon.nombre}?`,
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        let position = this.pokemonList.indexOf(pokemon);
+        this.pokemonService.deletePokemon(position);
+        this.getAllPokemon();
+      },
+      reject: () => {},
+    });
   }
 }
